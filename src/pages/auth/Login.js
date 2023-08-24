@@ -1,13 +1,16 @@
 import React, { useState } from "react";
-import Defaultlayout from "../components/layouts/Defaultlayout";
-import CustomInput from "../components/customInput/CustomInput";
+import Defaultlayout from "../../components/layouts/Defaultlayout";
+import CustomInput from "../../components/customInput/CustomInput";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../config/firebase-config";
+import { auth } from "../../config/firebase-config";
 import { toast } from "react-toastify";
+import { gerUserAction } from "../../user/userAction";
+import { useDispatch } from "react-redux";
 
 function Login() {
+  const dispatch = useDispatch();
   const [form, setForm] = useState({});
 
   const inputs = [
@@ -42,6 +45,8 @@ function Login() {
       });
       const signInValue = await signInPromise;
       console.log(signInValue);
+      //once logged in then send another call to firebase and save response to store
+      await gerUserAction(signInValue.user.uid, dispatch);
     } catch (e) {
       let { message } = e;
       if (message.includes("wrong")) {
@@ -64,7 +69,6 @@ function Login() {
               {...input}
             />
           ))}
-
           <Button variant="primary" type="submit">
             Sign in
           </Button>

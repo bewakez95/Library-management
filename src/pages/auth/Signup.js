@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import Defaultlayout from "../components/layouts/Defaultlayout";
+import Defaultlayout from "../../components/layouts/Defaultlayout";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import CustomInput from "../components/customInput/CustomInput";
+import CustomInput from "../../components/customInput/CustomInput";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { auth, db } from "../config/firebase-config";
+import { auth, db } from "../../config/firebase-config";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 
