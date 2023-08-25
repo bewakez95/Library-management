@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Defaultlayout from "../../components/layouts/Defaultlayout";
 import CustomInput from "../../components/customInput/CustomInput";
 import Button from "react-bootstrap/Button";
@@ -7,10 +7,17 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../config/firebase-config";
 import { toast } from "react-toastify";
 import { gerUserAction } from "../../user/userAction";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { admin } = useSelector((state) => state.adminInfo);
+  useEffect(() => {
+    admin?.uid && navigate("/dashboard");
+  }, [admin, navigate]);
+
   const [form, setForm] = useState({});
 
   const inputs = [
@@ -44,9 +51,10 @@ function Login() {
         success: "Successfully Logged in!",
       });
       const signInValue = await signInPromise;
-      console.log(signInValue);
+      // console.log(signInValue);
       //once logged in then send another call to firebase and save response to store
       await gerUserAction(signInValue.user.uid, dispatch);
+      navigate("/dashboard");
     } catch (e) {
       let { message } = e;
       if (message.includes("wrong")) {

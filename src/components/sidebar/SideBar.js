@@ -20,6 +20,9 @@ function SideBar() {
           <Link className="nav-link" to="/history">
             <li>History</li>
           </Link>
+          <Link className="nav-link" to="/admin-signup">
+            <li>Admin Sign up</li>
+          </Link>
         </ul>
       </div>
     </div>

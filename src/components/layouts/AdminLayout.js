@@ -11,7 +11,6 @@ function AdminLayout({ children }) {
         <SideBar />
         <div className="main">{children}</div>
       </div>
-
       <Footer />
     </div>
   );
