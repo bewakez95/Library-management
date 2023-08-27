@@ -20,7 +20,7 @@ export const addNewBookAction = (bookObj) => async (dispatch) => {
       success: "Success",
     });
     const docRef = await docRefPromise;
-    console.log("Document written with ID: ", docRef.id);
+    // console.log("Document written with ID: ", docRef.id);
   } catch (e) {
     toast.error(e.message);
   }
@@ -53,7 +53,7 @@ export const getBookAction = (id) => async (dispatch) => {
   try {
     const docRef = doc(db, "books", id);
     const docSnap = await getDoc(docRef);
-    //   console.log(docSnap);
+    // console.log(docSnap);
 
     if (docSnap.exists()) {
       // console.log("Document data:", docSnap.data());
@@ -65,6 +65,8 @@ export const getBookAction = (id) => async (dispatch) => {
       toast.error("No such files!");
     }
   } catch (e) {
+    // console.log(e.message);
+
     toast.error(e.message);
   }
 };
@@ -73,6 +75,7 @@ export const updateBookAction =
   ({ id, ...rest }) =>
   async (dispatch) => {
     try {
+      // console.log(id, rest);
       const bookRef = doc(db, "books", id);
       const docRefPromise = setDoc(bookRef, rest, { merge: true });
       toast.promise(docRefPromise, {
@@ -80,26 +83,24 @@ export const updateBookAction =
         success: "Success",
       });
       const docRef = await docRefPromise;
-      console.log("Document written with ID: ", docRef.id);
+      // console.log("Document written with ID: ", docRef.id);
     } catch (e) {
       toast.error(e.message);
     }
   };
 
-export const deleteBookAction =
-  ({ id }) =>
-  async (dispatch) => {
-    try {
-      // console.log(id);
-      const bookRef = doc(db, "books", id);
-      const docRefPromise = deleteDoc(bookRef);
-      toast.promise(docRefPromise, {
-        pending: "In progress",
-        success: "Success",
-      });
-      const docRef = await docRefPromise;
-      // console.log("Document written with ID: ", docRef);
-    } catch (e) {
-      toast.error(e.message);
-    }
-  };
+export const deleteBookAction = (id) => async (dispatch) => {
+  try {
+    console.log(id);
+    const bookRef = doc(db, "books", id);
+    const docRefPromise = deleteDoc(bookRef);
+    toast.promise(docRefPromise, {
+      pending: "In progress",
+      success: "Success",
+    });
+    const docRef = await docRefPromise;
+    // console.log("Document written with ID: ", docRef);
+  } catch (e) {
+    toast.error(e.message);
+  }
+};

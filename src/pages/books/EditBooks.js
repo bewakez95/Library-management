@@ -15,17 +15,17 @@ import {
 
 function EditBooks() {
   const dispatch = useDispatch();
-  const { selectedBook } = useSelector((state) => state.book);
-
+  const [form, setForm] = useState({});
   const { id } = useParams();
+
+  const { selectedBook } = useSelector((state) => state.book);
   useEffect(() => {
-    dispatch(getBookAction);
+    dispatch(getBookAction(id));
     setForm(selectedBook);
   }, [id]);
   useEffect(() => {
     setForm(selectedBook);
   }, [selectedBook]);
-  const [form, setForm] = useState({});
 
   const inputs = [
     {
@@ -78,8 +78,8 @@ function EditBooks() {
   };
   const handleOnSubmit = async (e) => {
     e.preventDefault();
+    // console.log(form);
     dispatch(updateBookAction(form));
-    console.log(form);
   };
   return (
     <AdminLayout>
