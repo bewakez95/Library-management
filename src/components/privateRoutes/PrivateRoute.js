@@ -4,6 +4,7 @@ import { Navigate } from "react-router-dom";
 
 function PrivateRoute({ children }) {
   const admin = useSelector((state) => state.adminInfo.admin);
+  // console.log(admin);
   return admin.uid ? children : <Navigate to="/signin" />;
 }
 

@@ -8,10 +8,11 @@ import "react-toastify/dist/ReactToastify.css";
 import { auth, db } from "../../config/firebase-config";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
-import AdminLayout from "../../components/layouts/AdminLayout";
 
-function Signup() {
-  const [form, setForm] = useState({});
+function PublicSignup() {
+  const [form, setForm] = useState({
+    role: "student",
+  });
   const handleOnChange = (e) => {
     const { name, value } = e.target; //destructure
     setForm({ ...form, [name]: value });
@@ -106,7 +107,7 @@ function Signup() {
     },
   ];
   return (
-    <AdminLayout>
+    <Defaultlayout>
       <div className="p-3 border shadow rounded admin-form">
         <Form onSubmit={handleOnSubmit}>
           {inputs.map((input, i) => (
@@ -121,12 +122,12 @@ function Signup() {
           ))}
 
           <Button variant="primary" type="submit">
-            Register
+            Register as Student
           </Button>
         </Form>
       </div>
-    </AdminLayout>
+    </Defaultlayout>
   );
 }
 
-export default Signup;
+export default PublicSignup;

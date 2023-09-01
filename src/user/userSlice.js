@@ -5,7 +5,7 @@ const initialState = {
 };
 
 export const userSlice = createSlice({
-  name: "Set-admin",
+  name: "user",
   initialState,
   reducers: {
     setAdmin: (state, { payload }) => {

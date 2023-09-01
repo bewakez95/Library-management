@@ -3,20 +3,18 @@ import Defaultlayout from "../../components/layouts/Defaultlayout";
 import CustomInput from "../../components/customInput/CustomInput";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import {
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { auth } from "../../config/firebase-config";
 import { toast } from "react-toastify";
 import { gerUserAction } from "../../user/userAction";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-function Login() {
+function ResetPassword() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { admin } = useSelector((state) => state.adminInfo);
-  useEffect(() => {
-    admin?.uid && navigate("/dashboard");
-  }, [admin, navigate]);
 
   const [form, setForm] = useState({});
 
@@ -28,13 +26,6 @@ function Login() {
       placeholder: "abc@xyz.com",
       required: true,
     },
-    {
-      label: "Password",
-      name: "password",
-      type: "password",
-      placeholder: "Password",
-      required: true,
-    },
   ];
   const handleOnChange = (e) => {
     const { name, value } = e.target; //destructure
@@ -44,18 +35,16 @@ function Login() {
     e.preventDefault();
     // console.log(e);
     try {
-      const { email, password } = form;
-      const signInPromise = signInWithEmailAndPassword(auth, email, password);
-      toast.promise(signInPromise, {
+      const { email } = form;
+      const resetPromise = sendPasswordResetEmail(auth, email);
+      toast.promise(resetPromise, {
         pending: "In Progress",
-        success: "Successfully Logged in!",
+        success: "Reset Link has been sent",
       });
-      const signInValue = await signInPromise;
+      const resetPromiseValue = await resetPromise;
       // console.log(signInValue);
       //once logged in then send another call to firebase and save response to store
-      await gerUserAction(signInValue.user.uid, dispatch);
-      console.log("here");
-      navigate("/dashboard");
+      //   await gerUserAction(resetPromiseValue.user.uid, dispatch);
     } catch (e) {
       let { message } = e;
       if (message.includes("wrong")) {
@@ -79,19 +68,12 @@ function Login() {
             />
           ))}
           <Button variant="primary" type="submit">
-            Sign in
+            Reset Password
           </Button>
         </Form>
-        <p>
-          Forget Password
-          <a href="/reset-password">Link</a>
-        </p>
-        <p>
-          <a href="/signup"> Want to sign up?</a>
-        </p>
       </div>
     </Defaultlayout>
   );
 }
 
-export default Login;
+export default ResetPassword;

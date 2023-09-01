@@ -9,7 +9,9 @@ import { useDispatch } from "react-redux";
 import { addNewBookAction } from "./bookAction";
 
 function NewBooks() {
-  const [form, setForm] = useState({});
+  const [form, setForm] = useState({
+    isAvailable: true,
+  });
   const dispatch = useDispatch();
 
   const inputs = [
