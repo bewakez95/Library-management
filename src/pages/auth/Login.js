@@ -54,7 +54,6 @@ function Login() {
       // console.log(signInValue);
       //once logged in then send another call to firebase and save response to store
       await gerUserAction(signInValue.user.uid, dispatch);
-      console.log("here");
       navigate("/dashboard");
     } catch (e) {
       let { message } = e;
@@ -84,7 +83,7 @@ function Login() {
         </Form>
         <p>
           Forget Password
-          <a href="/reset-password">Link</a>
+          <a href="/reset">Link</a>
         </p>
         <p>
           <a href="/signup"> Want to sign up?</a>

@@ -7,7 +7,7 @@ export const gerUserAction = (uid) => async (dispatch) => {
   try {
     const docRef = doc(db, "users", uid);
     const docSnap = await getDoc(docRef);
-    //   console.log(docSnap);
+    console.log(docSnap);
 
     if (docSnap.exists()) {
       // console.log("Document data:", docSnap.data());

@@ -107,26 +107,28 @@ function AdminSignup() {
     },
   ];
   return (
-    <PrivateRoute>
-      <div className="p-3 border shadow rounded admin-form">
-        <Form onSubmit={handleOnSubmit}>
-          {inputs.map((input, i) => (
-            <CustomInput
-              key={i}
-              onChange={handleOnChange}
-              // label={input.label}
-              // placeholder={input.placeholder}
-              // type={input.type}
-              {...input}
-            />
-          ))}
+    <>
+      <PrivateRoute>
+        <div className="p-3 border shadow rounded admin-form">
+          <Form onSubmit={handleOnSubmit}>
+            {inputs.map((input, i) => (
+              <CustomInput
+                key={i}
+                onChange={handleOnChange}
+                // label={input.label}
+                // placeholder={input.placeholder}
+                // type={input.type}
+                {...input}
+              />
+            ))}
 
-          <Button variant="primary" type="submit">
-            Register as Admin
-          </Button>
-        </Form>
-      </div>
-    </PrivateRoute>
+            <Button variant="primary" type="submit">
+              Register as Admin
+            </Button>
+          </Form>
+        </div>
+      </PrivateRoute>
+    </>
   );
 }
 
